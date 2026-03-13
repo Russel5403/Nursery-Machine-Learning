@@ -55,14 +55,14 @@ PRESCRIPTIVE = {
 
 # Feature options
 OPTIONS = {
-    "parents":  ["usual", "pretentious", "great_pret"],
-    "has_nurs": ["proper", "less_proper", "improper", "critical", "very_crit"],
-    "form":     ["complete", "completed", "incomplete", "foster"],
-    "children": ["1", "2", "3", "more"],
-    "housing":  ["convenient", "less_conv", "critical"],
-    "finance":  ["convenient", "inconv"],
-    "social":   ["non-prob", "slightly_prob", "problematic"],
-    "health":   ["recommended", "priority", "not_recom"],
+    "parents":  ["Usual", "Pretentious", "Great Pretentious"],
+    "has_nurs": ["Proper", "Less Proper", "Improper", "Critical", "Very Critical"],
+    "form":     ["Complete", "Completed", "Incomplete", "Foster"],
+    "children": ["1", "2", "3", "More"],
+    "housing":  ["Convenient", "Less Convenient", "Critical"],
+    "finance":  ["Convenient", "Inconvenient"],
+    "social":   ["Non Problematic", "Slightly Problematic", "Problematic"],
+    "health":   ["Recommended", "Priority", "Not Recommended"],
 }
 
 # Page config
