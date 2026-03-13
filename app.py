@@ -55,14 +55,14 @@ PRESCRIPTIVE = {
 
 # Feature options
 OPTIONS = {
-    "parents":  ["Usual", "Pretentious", "Great Pretentious"],
-    "has_nurs": ["Proper", "Less Proper", "Improper", "Critical", "Very Critical"],
-    "form":     ["Complete", "Completed", "Incomplete", "Foster"],
-    "children": ["1", "2", "3", "More"],
-    "housing":  ["Convenient", "Less Convenient", "Critical"],
-    "finance":  ["Convenient", "Inconvenient"],
-    "social":   ["Non Problematic", "Slightly Problematic", "Problematic"],
-    "health":   ["Recommended", "Priority", "Not Recommended"],
+    "parents":  {"Usual": "usual", "Pretentious": "pretentious", "Great Pretentious": "great_pret"},
+    "has_nurs": {"Proper": "proper", "Less Proper": "less_proper", "Improper": "improper", "Critical": "critical", "Very Critical": "very_crit"},
+    "form":     {"Complete": "complete", "Completed": "completed", "Incomplete": "incomplete", "Foster": "foster"},
+    "children": {"1": "1", "2": "2", "3": "3", "More": "more"},
+    "housing":  {"Convenient": "convenient", "Less Convenient": "less_conv", "Critical": "critical"},
+    "finance":  {"Convenient": "convenient", "Inconvenient": "inconv"},
+    "social":   {"Non Problematic": "non-prob", "Slightly Problematic": "slightly_prob", "Problematic": "problematic"},
+    "health":   {"Recommended": "recommended", "Priority": "priority", "Not Recommended": "not_recom"},
 }
 
 # Page config
@@ -255,17 +255,17 @@ with st.expander("📝  Applicant Profile Form — Click to expand", expanded=Fa
 
     with col1:
         st.markdown("**👨‍👩‍👧 Family Information**")
-        parents  = st.selectbox("Parents Status",     OPTIONS["parents"],  key="parents")
-        form     = st.selectbox("Family Form",         OPTIONS["form"],     key="form")
-        children = st.selectbox("Number of Children", OPTIONS["children"], key="children")
-        finance  = st.selectbox("Financial Standing", OPTIONS["finance"],  key="finance")
+        parents  = st.selectbox("Parents Status",     list(OPTIONS["parents"].keys()),  key="parents")
+        form     = st.selectbox("Family Form",         list(OPTIONS["form"].keys()),     key="form")
+        children = st.selectbox("Number of Children", list(OPTIONS["children"].keys()), key="children")
+        finance  = st.selectbox("Financial Standing", list(OPTIONS["finance"].keys()),  key="finance")
 
     with col2:
         st.markdown("**🏠 Living & Social Conditions**")
-        housing  = st.selectbox("Housing Conditions", OPTIONS["housing"],  key="housing")
-        social   = st.selectbox("Social Conditions",  OPTIONS["social"],   key="social")
-        has_nurs = st.selectbox("Nursery Quality",    OPTIONS["has_nurs"], key="has_nurs")
-        health   = st.selectbox("Health Conditions",  OPTIONS["health"],   key="health")
+        housing  = st.selectbox("Housing Conditions", list(OPTIONS["housing"].keys()),  key="housing")
+        social   = st.selectbox("Social Conditions",  list(OPTIONS["social"].keys()),   key="social")
+        has_nurs = st.selectbox("Nursery Quality",    list(OPTIONS["has_nurs"].keys()), key="has_nurs")
+        health   = st.selectbox("Health Conditions",  list(OPTIONS["health"].keys()),   key="health")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -289,7 +289,8 @@ if predict:
     encoded = []
     for col, val in input_data.items():
         le = encoders[col]
-        encoded.append(le.transform([val])[0])
+        actual_val = OPTIONS[col][val]
+        encoded.append(le.transform([actual_val])[0])
 
     X_input = np.array(encoded).reshape(1, -1)
     prediction_encoded = model.predict(X_input)[0]
